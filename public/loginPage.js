@@ -3,25 +3,21 @@
 const userForm = new UserForm();
 
 userForm.loginFormCallback = (data) => {
-  try {
-    ApiConnector.login(data, (response) => {
-      if (response.success === true) {
-        location.reload();
-      }
-    });
-  } catch (error) {
-    console.error(error);
-  }
+  ApiConnector.login(data, (response) => {
+    if (response.success === true) {
+      location.reload();
+    } else {
+      userForm.setLoginErrorMessage(response.error);
+    }
+  });
 };
 
 userForm.registerFormCallback = (data) => {
-  try {
-    ApiConnector.register(data, (response) => {
-      if (response.success === true) {
-        location.reload();
-      }
-    });
-  } catch (error) {
-    console.error(error);
-  }
+  ApiConnector.register(data, (response) => {
+    if (response.success === true) {
+      location.reload();
+    } else {
+      userForm.setRegisterErrorMessage(response.error);
+    }
+  });
 };

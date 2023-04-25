@@ -3,15 +3,11 @@
 const logoutButton = new LogoutButton();
 
 logoutButton.action = () => {
-  try {
-    ApiConnector.logout((response) => {
-      if (response.success === true) {
-        location.reload();
-      }
-    });
-  } catch (error) {
-    console.error(error);
-  }
+  ApiConnector.logout((response) => {
+    if (response.success === true) {
+      location.reload();
+    }
+  });
 };
 
 ApiConnector.current((response) => {
@@ -43,7 +39,7 @@ moneyManager.addMoneyCallback = (data) => {
       ProfileWidget.showProfile(response.data);
       moneyManager.setMessage(response.success, "Счёт успешно пополнен");
     } else {
-      moneyManager.setMessage(response.success, "Возникла ошибка при пополнении счёта");
+      moneyManager.setMessage(response.success, response.error);
     }
   });
 };
@@ -54,7 +50,7 @@ moneyManager.conversionMoneyCallback = (data) => {
       ProfileWidget.showProfile(response.data);
       moneyManager.setMessage(response.success, "Валюта успешно конвертирована");
     } else {
-      moneyManager.setMessage(response.success, "Возникла ошибка при конвертации валюты");
+      moneyManager.setMessage(response.success, response.error);
     }
   });
 };
@@ -65,7 +61,7 @@ moneyManager.sendMoneyCallback = (data) => {
       ProfileWidget.showProfile(response.data);
       moneyManager.setMessage(response.success, "Средства успешно переведены");
     } else {
-      moneyManager.setMessage(response.success, "Возникла ошибка при переводе средств");
+      moneyManager.setMessage(response.success, response.error);
     }
   });
 };
@@ -88,7 +84,7 @@ favoritesWidget.addUserCallback = (data) => {
       moneyManager.updateUsersList(response.data);
       favoritesWidget.setMessage(response.success, "Пользователь добавлен в список избранных");
     } else {
-      favoritesWidget.setMessage(response.success, "Возникла ошибка при добавлении пользователя в список избранных");
+      favoritesWidget.setMessage(response.success, response.error);
     }
   });
 };
@@ -101,7 +97,7 @@ favoritesWidget.removeUserCallback = (data) => {
       moneyManager.updateUsersList(response.data);
       favoritesWidget.setMessage(response.success, "Пользователь удалён из списка избранных");
     } else {
-      favoritesWidget.setMessage(response.success, "Возникла ошибка при удалении пользователя из списка избранных");
+      favoritesWidget.setMessage(response.success, response.error);
     }
   });
 };
